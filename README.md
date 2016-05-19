@@ -14,14 +14,10 @@ TS: t1, t2, t3, ...
 ## Architecture
 
 > theBigTable.R
-
-> --weather.R -> weather.df
-
-> --order.R -> order.df
-
-> --poi.R
-
-> ...
+> |--weather.R -> weather.df
+> |--order.R -> order.df
+> |--poi.R
+> |...
 
 ## DF format
 

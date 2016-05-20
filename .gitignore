@@ -1,0 +1,7 @@
+
+## ignoring raw data
+test_set_1/
+training_data/
+
+## ignore .Rhistory
+.Rhistory

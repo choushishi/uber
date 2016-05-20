@@ -14,11 +14,23 @@ weather = data.frame("Date" = weather$V1$date,
                      "PM2.5" = weather$V4)
 
 timeToTS = function(time) {
-    hourpassed = strptime(time, format = "%H:%M:%S") - strptime("00:00:00", format = "%H:%M:%S")
-    minutespassed = as.numeric(hourpassed * 60)
-    return(sprintf("t%d", floor(minutespassed/10)))
+
+    time1 = strptime(time, format = "%H:%M:%S")
+    time2 = strptime("00:00:00", format = "%H:%M:%S")
+    
+    minutespassed = as.numeric(difftime(time1, time2, units = "mins"))
+    return(sprintf("t%d", ceiling(minutespassed/10)))
 }
 
+timeToTS("23:59:59")
 
+weather$TS = sapply(weather$TS, timeToTS)
 
-timeToTS("08:12:20")
+library(dplyr)
+weather = weather %>% 
+          group_by(Date, TS) %>% 
+          summarise(Weather=mean(Weather), 
+                    temperature = mean(temperature), 
+                    PM2.5 = mean(PM2.5))
+weather = ungroup(weather)
+

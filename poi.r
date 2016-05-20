@@ -1,4 +1,5 @@
 require(data.table)
+require(reshape2)
 # 0. Preprocessing
 # Transform all of ":" and "\t" to ";"
 
@@ -22,12 +23,13 @@ setkey(Region,Region)
 #3.1.4 new poinew
 poireshape1 <- data.table(region=Region$Region,Type=ColTypePOI,Q=ColQuantity)
 
-# 3. reshape 2: dcast
+# 3. 
 # 3.1 remove "" and NA and replace them with 0
 poireshape1[is.na(poireshape1)] <- 0
 poireshape1[Type==""] <- 0
 poireshape1 <- poireshape1[Type!=0 & Q!=0]
 poireshape1$Q <- as.integer(poireshape1$Q)
+# 3.2 reshape2: dcast
 poireshape2 <- dcast(poireshape1,region ~ Type)
 poireshape2[is.na(poireshape2)] <- 0
 write.csv(poireshape2,file="poireshape2.csv",row.names=FALSE)

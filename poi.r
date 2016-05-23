@@ -30,6 +30,7 @@ poireshape1[Type==""] <- 0
 poireshape1 <- poireshape1[Type!=0 & Q!=0]
 poireshape1$Q <- as.integer(poireshape1$Q)
 # 3.2 reshape2: dcast
+<<<<<<< HEAD
 poireshape2 <- data.table(dcast(poireshape1,region ~ Type))
 poireshape2[is.na(poireshape2)] <- 0
 
@@ -42,3 +43,8 @@ poireshape2 <- clustermap[poireshape2]
 poireshape2[,region:=NULL]
 setkey(poireshape2,regionid)
 write.csv(poireshape2,file="poireshape2.csv",row.names=FALSE)
+=======
+poireshape2 <- dcast(poireshape1,region ~ Type)
+poireshape2[is.na(poireshape2)] <- 0
+write.csv(poireshape2,file="poireshape2.csv",row.names=FALSE)
+>>>>>>> 022b183dae82a9c3b8afc55e681407cb15f3405b

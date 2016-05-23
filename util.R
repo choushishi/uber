@@ -14,7 +14,7 @@ timeToTS = function(time) {
     return(ceiling(minutespassed / 10))
 }
 
-## hash-id map
+## map hash and Id back and forth
 
 clustermap = read.csv("./training_data/cluster_map/cluster_map", sep = "\t", header = FALSE)
 
@@ -22,5 +22,3 @@ hashIdMap = function(x) {
     wow = clustermap[(clustermap == x)[,c(2,1)]]
     return(wow)
 }
-
-

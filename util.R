@@ -14,7 +14,7 @@ timeToTS = function(time) {
     return(ceiling(minutespassed / 10))
 }
 
-## map hash and Id back and forth
+## map district hash and Id back and forth
 
 clustermap = read.csv("./training_data/cluster_map/cluster_map", sep = "\t", header = FALSE)
 

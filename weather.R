@@ -65,8 +65,8 @@ weather.daily = function(df) {
         }
     }
 
-    # Join the data into dest-timeslot-sequence. Now it is a big table for a single day
-    # Every dest share the same weather, so `by` parameter is only fed by "TS" column
+    # Join the data into Dist-timeslot-sequence. Now it is a big table for a single day
+    # Every Dist share the same weather, so `by` parameter is only fed by "TS" column
     df = full_join(crossProduct, df, by = "TS")
     
     # Re-arrange column order and output something neat.
@@ -77,12 +77,12 @@ weather.daily = function(df) {
 timeslotSeq = data.frame(TS = c(1:144))
 timeslotSeq$TS = as.integer(timeslotSeq$TS)
 
-# Create a dest index sequence
-destSeq = data.frame(Dest = c(1:66))
+# Create a Dist index sequence
+DistSeq = data.frame(Dist = c(1:66))
 timeslotSeq$TS = as.integer(timeslotSeq$TS)
 
 # Cross-join these two sequence to make a big table for a single day
-crossProduct = merge(timeslotSeq, destSeq)
+crossProduct = merge(timeslotSeq, DistSeq)
 
 # Now bind them together. 
 weather.1 = weather.daily(read.csv("./training_data/weather_data/weather_data_2016-01-01", sep = "\t", header = FALSE))
@@ -125,13 +125,16 @@ weather.19 = weather.daily(read.csv("./training_data/weather_data/weather_data_2
 grep(FALSE, complete.cases(weather.19))
 weather.20 = weather.daily(read.csv("./training_data/weather_data/weather_data_2016-01-20", sep = "\t", header = FALSE))
 grep(FALSE, complete.cases(weather.20))
+weather.21 = weather.daily(read.csv("./training_data/weather_data/weather_data_2016-01-21", sep = "\t", header = FALSE))
+grep(FALSE, complete.cases(weather.21))
 
 weather = bind_rows(weather.1,weather.2,weather.3,weather.4, weather.5,
                 weather.6,weather.7,weather.8,weather.9, weather.10,
                 weather.11,weather.12,weather.13,weather.14, weather.15,
-                weather.16,weather.17,weather.18,weather.19, weather.20)
+                weather.16,weather.17,weather.18,weather.19, weather.20,
+                weather.21)
 
-weather = arrange(weather, Date, TS, Dest)
+weather = arrange(weather, Date, TS, Dist)
 
 write.csv(weather, "weather.csv", row.names = FALSE)
 

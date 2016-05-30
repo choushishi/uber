@@ -8,3 +8,6 @@ training_data/
 
 ## ignore markdown html
 README.html
+
+## ignore bigtable
+bigtable20160527.csv
